@@ -21,8 +21,8 @@ phases:
       - echo "Removing existing public directory..."
       - rm -rf public
       - echo "Running Hugo..."
-      - hugo version
       - hugo
+      - hugo deploy
       - echo "Syncing with S3..."
       - aws s3 sync public/ s3://hugo-final-project/ --region us-east-1 --delete
       - echo "Build phase completed."
