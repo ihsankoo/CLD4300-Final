@@ -15,9 +15,18 @@ phases:
       - rm -rf /tmp/*
   build:
     commands:
+      - echo "Starting build phase..."
+      - pwd
+      - ls -la
+      - echo "Removing existing public directory..."
       - rm -rf public
+      - echo "Running Hugo..."
+      - hugo version
       - hugo
+      - echo "Syncing with S3..."
       - aws s3 sync public/ s3://hugo-final-project/ --region us-east-1 --delete
+      - echo "Build phase completed."
+
   post_build:
     commands:
       - echo Build completed on `date`
