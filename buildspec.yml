@@ -2,7 +2,7 @@ version: 0.2
 
 environment_variables:
   plaintext:
-    HUGO_VERSION: "0.120.4"
+    HUGO_VERSION: "0.97.1"
     
 phases:
   install:
@@ -12,6 +12,8 @@ phases:
       - tar -xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
       - mv hugo /usr/bin/hugo
       - cd -
+      - git submodule init
+      - git submodule update
       - rm -rf /tmp/*
   build:
     commands:
@@ -22,7 +24,6 @@ phases:
       - rm -rf public
       - echo "Running Hugo..."
       - hugo
-      - hugo deploy
       - echo "Syncing with S3..."
       - aws s3 sync public/ s3://hugo-final-project/ --region us-east-1 --delete
       - echo "Build phase completed."
